@@ -2,21 +2,17 @@
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       colors: {
         legend: {
           dark: '#020205',
-          darker: '#000000',
-          blue: '#1A73E8', // أزرق قوي
-          red: '#E81A1A',  // أحمر قرمزي
-          cyan: '#00FFFF', // لمسة نيون
+          blue: '#1A73E8',
+          red: '#E81A1A',
+          cyan: '#00FFFF',
         },
-      },
-      fontFamily: {
-        legend: ['Cinzel Decorative', 'serif'], // خط أسطوري
-        mono: ['JetBrains Mono', 'monospace'],
       },
     },
   },
