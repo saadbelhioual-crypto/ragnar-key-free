@@ -1,0 +1,108 @@
+"use client";
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Copy, CheckCircle2, Crown, Flame } from 'lucide-react';
+
+export default function LegendaryCodePage() {
+  const [copied, setCopied] = useState(false);
+  const REDEEM_CODE = "RAGNAR-FF10-FREE";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(REDEEM_CODE).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    });
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center p-6 relative font-mono overflow-hidden bg-black text-white">
+      {/* تضمين ستايل مباشر للألوان */}
+      <style jsx global>{`
+        .bg-legend-blue { background-color: #1A73E8; }
+        .bg-legend-red { background-color: #E81A1A; }
+        .text-legend-blue { color: #1A73E8; }
+        .text-legend-red { color: #E81A1A; }
+        .border-legend-blue { border-color: #1A73E8; }
+        .border-legend-red { border-color: #E81A1A; }
+      `}</style>
+
+      {/* الخلفية المضيئة */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-blue-600 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-red-600 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2"></div>
+      </div>
+      
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }} 
+        animate={{ opacity: 1, scale: 1 }}
+        className="w-full max-w-xl relative z-10 p-[2px] rounded-3xl bg-gradient-to-r from-blue-600 via-purple-500 to-red-600 shadow-[0_0_50px_rgba(37,99,235,0.2)]"
+      >
+        <div className="bg-[#050505] p-8 md:p-12 rounded-[22px] relative overflow-hidden">
+          
+          <div className="flex justify-between items-center mb-10 border-b border-white/10 pb-6">
+            <Crown className="text-red-500" size={28} />
+            <h1 className="text-2xl font-black italic tracking-tighter text-white">LEGENDARY REDEEM</h1>
+            <Flame className="text-blue-500" size={28} />
+          </div>
+
+          <AnimatePresence mode="wait">
+            {!copied ? (
+              <motion.div key="ready" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, y: -20 }} className="text-center space-y-10">
+                <div className="space-y-2">
+                  <h2 className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">// Redemptio_Protocol_Activated</h2>
+                  <p className="text-4xl font-black text-white tracking-tight">YOUR CODE</p>
+                </div>
+                
+                <div 
+                  onClick={handleCopy}
+                  className="bg-black/50 p-8 rounded-2xl border border-white/5 relative group cursor-pointer hover:border-white/20 transition-all"
+                >
+                  <p className="text-2xl md:text-4xl font-black tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-red-500">
+                    {REDEEM_CODE}
+                  </p>
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-600 px-4 py-1 text-[10px] text-white rounded-full font-bold uppercase shadow-lg shadow-red-600/20">FREE ACCESS</span>
+                </div>
+                
+                <button 
+                  onClick={handleCopy}
+                  className="w-full bg-white text-black font-black py-5 rounded-xl hover:scale-[1.02] active:scale-95 transition-all uppercase flex items-center justify-center gap-3 shadow-[0_10px_20px_rgba(255,255,255,0.1)]"
+                >
+                  <Copy size={22} />
+                  COPY CODE
+                </button>
+              </motion.div>
+            ) : (
+              <motion.div key="copied" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center space-y-8 py-6">
+                <CheckCircle2 size={100} className="text-blue-500 mx-auto drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
+                <h2 className="text-4xl font-black text-white">CODE COPIED!</h2>
+                <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                  <motion.div 
+                    initial={{ width: 0 }} 
+                    animate={{ width: "100%" }} 
+                    transition={{ duration: 2, ease: "linear" }}
+                    className="h-full bg-gradient-to-r from-blue-500 to-red-500"
+                  ></motion.div>
+                </div>
+                <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">Access Granted // System Resetting...</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </motion.div>
+      
+      <div className="absolute bottom-6 text-[10px] text-white/20 font-bold uppercase tracking-[0.5em] pointer-events-none">
+        RAGNAR OS // SECURE PROTOCOL
+      </div>
+    </div>
+  );
+}
+        </div>
+      </motion.div>
+      
+      {/* Footer Text */}
+      <div className="absolute bottom-4 left-0 right-0 text-center text-[10px] text-gray-700 font-bold uppercase tracking-widest z-10">
+        Ragnar OS // Secure redeem protocol // FF10
+      </div>
+    </div>
+  );
+}
